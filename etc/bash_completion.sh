@@ -136,6 +136,9 @@ _git_scp(){
 
 _git_rscp(){
   __git_complete_remote_or_refspec
+
+_git_snapshot(){
+  __git_extras_workflow "snapshot"
 }
 
 _git_squash(){
@@ -144,4 +147,8 @@ _git_squash(){
 
 _git_undo(){
    __gitcomp "--hard --soft -h -s"
+}
+
+_git_unpushed(){
+  __git_extras_workflow "unpushed"
 }
