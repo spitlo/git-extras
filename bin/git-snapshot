@@ -1,0 +1,75 @@
+#!/bin/sh
+
+# This is pretty brute force at the moment, there must be a better way to do it.
+
+file=$1
+date="${2:-`date "+%Y-%m-%d"`}"
+lookback="${3:-365}"
+outputfile="$4"
+
+test -e `pwd`$file && echo "File not found." 1>&2 && exit 1
+
+# Check if input date is after file was added to the repo
+added=`git log --diff-filter=A --date=short --follow --format=%ad -1 -- $file`
+if test `echo $added | tr -d "-"` -gt `echo $date | tr -d "-"`; then
+  echo "File was not added at given date. Exiting."
+  exit 1
+fi
+
+
+days_back=0
+before=`date -j -v+1d -f "%Y-%m-%d" "$date" "+%Y-%m-%d"`
+
+function get_hits {
+  after=`date -j -v-${days_back}d -f "%Y-%m-%d" "$date" "+%Y-%m-%d"`
+  hits=(`git log --before=$before --after=$after --format=format:%H $file`)
+}
+
+echo "Going back in time"
+while test "${#hits[@]}" -eq 0 && test "$days_back" -le "$lookback"; do
+  if test "$(( $days_back % 5 ))" -eq 0; then
+    printf "."
+  fi
+  get_hits
+  ((days_back++))
+done
+echo
+
+
+if test ${#hits[@]} -eq 0 ; then
+  echo "Not found, try a later date or increase the lookback."
+elif test ${#hits[@]} -eq 1 ; then
+  echo "Snapshot of file $file on $date.\n"
+  echo SHA: ${hits[0]}
+  git show ${hits[0]}:$file
+else
+  echo "Multiple hits. Pick your preference:"
+  counter=0
+  for sha1 in "${hits[@]}"; do
+    ((counter++))
+    echo "$counter) `git log -n 1 --pretty=format:"%h: %s" $sha1`"
+  done
+  read -p "Enter the number of the commit you want a snapshot of... " commit
+  commit=${commit:-1}
+  commit=$((commit-1))
+
+  if test "$commit" -ge 0 && test "$commit" -le "$((counter-1))"; then
+    if test -n "$outputfile"; then
+      # git show ${hits[$commit]}:$file > "$outputfile"
+      if test -e "$outputfile"; then
+        read -p "File '$outputfile' exists. Overwrite [y/N]? " res
+        case $res in
+          [Yy]* ) break;;
+          * ) echo "No action taken. Exiting."; exit 0;;
+        esac
+      fi
+      git show ${hits[$commit]}:$file > "$outputfile"
+    else
+      echo Content of file "$file" on date "$date":
+      git show ${hits[$commit]}:$file
+    fi
+  else
+    echo "Invalid number"
+    exit 1
+  fi
+fi
