@@ -3,7 +3,9 @@
  - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
  - [`git back`](#git-back)
+ - [`git bug`](#git-featurerefactorbugchore)
  - [`git changelog`](#git-changelog)
+ - [`git chore`](#git-featurerefactorbugchore)
  - [`git clear`](#git-clear)
  - [`git clear-soft`](#git-clear-soft)
  - [`git commits-since`](#git-commits-since)
@@ -17,7 +19,8 @@
  - [`git delta`](#git-delta)
  - [`git effort`](#git-effort)
  - [`git extras`](#git-extras)
- - [`git feature|refactor|bug|chore`](#git-featurerefactorbugchore)
+ - [`git feature`](#git-featurerefactorbugchore)
+ - [`git force-clone`](#git-force-clone)
  - [`git fork`](#git-fork)
  - [`git fresh-branch`](#git-fresh-branch)
  - [`git gh-pages`](#git-gh-pages)
@@ -37,21 +40,25 @@
  - [`git pr`](#git-pr)
  - [`git psykorebase`](#git-psykorebase)
  - [`git pull-request`](#git-pull-request)
- - [`git rebase-patch`](#git-rebase-patch)
  - [`git reauthor`](#git-reauthor)
+ - [`git rebase-patch`](#git-rebase-patch)
+ - [`git refactor`](#git-featurerefactorbugchore)
  - [`git release`](#git-release)
+ - [`git rename-branch`](#git-rename-branch)
  - [`git rename-tag`](#git-rename-tag)
  - [`git repl`](#git-repl)
  - [`git reset-file`](#git-reset-file)
  - [`git root`](#git-root)
+ - [`git rscp`](#git-scp)
  - [`git scp`](#git-scp)
  - [`git sed`](#git-sed)
  - [`git setup`](#git-setup)
  - [`git show-merged-branches`](#git-show-merged-branches)
- - [`git show-unmerged-branches`](#git-show-unmerged-branches)
  - [`git show-tree`](#git-show-tree)
- - [`git standup`](#git-standup)
+ - [`git show-unmerged-branches`](#git-show-unmerged-branches)
+ - [`git stamp`](#git-stamp)
  - [`git squash`](#git-squash)
+ - [`git standup`](#git-standup)
  - [`git summary`](#git-summary)
  - [`git sync`](#git-sync)
  - [`git touch`](#git-touch)
@@ -197,7 +204,7 @@ project  : git-extras
 
 ## git line-summary
 
-  WARNING: git line-summary has been replaced by git summary --line and will be removed in a future release.
+  WARNING: git line-summary has been replaced by [`git summary --line`](#git-summary) and will be removed in a future release.
 
 ## git effort
 
@@ -343,6 +350,21 @@ upstream        git@github.com:LearnBoost/expect.js (fetch)
 upstream        git@github.com:LearnBoost/expect.js (push)
 ```
 
+## git force-clone
+
+If the clone target directory exists and is a git repository, reset its
+contents to a clone of the remote.
+
+``` bash
+$ git force-clone [-b {branch_name}] {remote_url} {destination_path}
+$ git force-clone -b master https://github.com/tj/git-extras ./target-directory
+```
+
+**CAUTION**: If the repository exists, this will destroy *all* local changes
+to the repository - changed files will be reset and local branches will be
+removed.
+
+[More information](man/git-force-clone.md).
 
 ## git release
 
@@ -360,6 +382,18 @@ Does the following:
   - Push the branch / tags
   - Executes _.git/hooks/post-release.sh_ (if present)
 
+
+## git rename-branch
+
+Rename a branch locally, and sync to remote via `git push`.
+
+```
+# renames any branch
+$ git rename-branch new-name old-name
+
+# renames current branch
+$ git rename-branch new-name
+```
 
 ## git rename-tag
 
@@ -713,7 +747,6 @@ Updating AUTHORS file:
 $ git authors && cat AUTHORS
 
 TJ Holowaychuk <tj@vision-media.ca>
-Tj Holowaychuk <tj@vision-media.ca>
 hemanth.hm <hemanth.hm@gmail.com>
 Jonhnny Weslley <jw@jonhnnyweslley.net>
 nickl- <github@jigsoft.co.za>
@@ -726,11 +759,22 @@ Listing authors:
 $ git authors --list
 
 TJ Holowaychuk <tj@vision-media.ca>
-Tj Holowaychuk <tj@vision-media.ca>
 hemanth.hm <hemanth.hm@gmail.com>
 Jonhnny Weslley <jw@jonhnnyweslley.net>
 nickl- <github@jigsoft.co.za>
 Leila Muhtasib <muhtasib@gmail.com>
+```
+
+Listing authors without email:
+
+```bash
+$ git authors --list --no-email
+
+TJ Holowaychuk
+hemanth.hm
+Jonhnny Weslley
+nickl-
+Leila Muhtasib
 ```
 
 ## git back
@@ -915,6 +959,79 @@ For example, running `git show-tree` will display:
 
 Be free to try it for yourself!
 
+
+## git stamp
+
+Stamp the last commit message
+
+Commit message is
+
+```bash
+Fix timezone bug
+```
+
+Reference the issues numbers from your bug tracker
+
+```bash
+$ git stamp Issue FOO-123
+
+commit 787590e42c9bacd249f3b79faee7aecdc9de28ec
+Author: Jack <jack@work.com>
+Commit: Jack <jack@work.com>
+
+    Fix timezone bug
+
+    Issue FOO-123
+
+$ git stamp Issue FOO-456 \#close
+
+commit f8d920511e052bea39ce2088d1d723b475aeff87
+Author: Jack <jack@work.com>
+Commit: Jack <jack@work.com>
+
+    Fix timezone bug
+
+    Issue FOO-123
+
+    Issue FOO-456 #close
+```
+
+Link to its review page
+
+```bash
+$ git stamp Review https://reviews.foo.org/r/4567/
+
+commit 6c6bcf43bd32a76e37b6fc9708d3ff0ae723c7da
+Author: Jack <jack@work.com>
+Commit: Jack <jack@work.com>
+
+    Fix timezone bug
+
+    Issue FOO-123
+
+    Issue FOO-456 #close
+
+    Review https://reviews.foo.org/r/4567/
+```
+
+Replace previous issues with a new one  
+(Note that the identifier is case insensitive)
+
+```bash
+$ git stamp --replace issue BAR-123
+
+commit 2b93c56b2340578cc3478008e2cadb05a7bcccfa
+Author: Jack <jack@work.com>
+Commit: Jack <jack@work.com>
+
+    Fix timezone bug
+
+    Review https://reviews.foo.org/r/4567/
+
+    issue BAR-123
+```
+
+
 ## git standup
 
 Recall what you did or find what someone else did in a given range of time.
@@ -941,7 +1058,7 @@ List all commits on the local branch that have not yet been sent to origin. Any 
 
 ## git archive-file
 
-Creates an zip archive of the current git repository. The name of the archive will depend on the current HEAD of your git respository.
+Creates an zip archive of the current git repository. The name of the archive will depend on the current HEAD of your git repository.
 
 ## git missing
 

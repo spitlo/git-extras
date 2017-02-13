@@ -109,6 +109,7 @@ __gitex_author_names() {
 _git-authors() {
     _arguments  -C \
         '(--list -l)'{--list,-l}'[show authors]' \
+        '--no-email[without email]' \
 }
 
 _git-bug() {
@@ -258,7 +259,6 @@ _git-feature() {
     esac
 }
 
-
 _git-graft() {
     _arguments \
         ':src-branch-name:__gitex_branch_names' \
@@ -337,6 +337,10 @@ _git-squash() {
         ':branch-name:__gitex_branch_names'
 }
 
+_git-stamp() {
+    _arguments  -C \
+         '(--replace -r)'{--replace,-r}'[replace stamps with same id]'
+}
 
 _git-summary() {
     _arguments '--line[summarize with lines rather than commits]'
@@ -352,7 +356,7 @@ _git-undo(){
 
 zstyle ':completion:*:*:git:*' user-commands \
     alias:'define, search and show aliases' \
-    archive-file:'export the current head of the git repository to a archive' \
+    archive-file:'export the current head of the git repository to an archive' \
     authors:'generate authors report' \
     back:'undo and stage latest commits' \
     bug:'create bug branch' \
@@ -372,6 +376,7 @@ zstyle ':completion:*:*:git:*' user-commands \
     effort:'show effort statistics on file(s)' \
     extras:'awesome git utilities' \
     feature:'create/merge feature branch' \
+    force-clone:'overwrite local repositories with clone' \
     fork:'fork a repo on github' \
     fresh-branch:'create fresh branches' \
     gh-pages:'create the github pages branch' \
@@ -390,9 +395,11 @@ zstyle ':completion:*:*:git:*' user-commands \
     pr:'checks out a pull request locally' \
     psykorebase:'rebase a branch with a merge commit' \
     pull-request:'create pull request to GitHub project' \
+    reauthor:'replace the author and/or committer identities in commits and tags' \
     rebase-patch:'rebases a patch' \
     refactor:'create refactor branch' \
     release:'commit, tag and push changes to the repository' \
+    rename-branch:'rename a branch' \
     rename-tag:'rename a tag' \
     repl:'git read-eval-print-loop' \
     reset-file:'reset one file' \
@@ -404,6 +411,7 @@ zstyle ':completion:*:*:git:*' user-commands \
     show-tree:'show branch tree of commit history' \
     show-unmerged-branches:'show unmerged branches' \
     squash:'import changes from a branch' \
+    stamp:'stamp the last commit message' \
     standup:'recall the commit history' \
     summary:'show repository summary' \
     sync:'sync local branch with remote branch' \
