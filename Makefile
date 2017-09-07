@@ -6,6 +6,8 @@ BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.md)
 MAN_HTML = $(MANS:.md=.html)
 MAN_PAGES = $(MANS:.md=.1)
+CODE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+INSTALL_VIA ?= source
 # Libraries used by all commands
 LIB = "helper/reset-env" "helper/git-extra-utility"
 
@@ -16,6 +18,9 @@ default: install
 docs: $(MAN_HTML) $(MAN_PAGES)
 
 install:
+	@if [ "$(INSTALL_VIA)" = brew ]; then \
+		git apply brew-release.patch || { echo "Can't apply brew release patch"; exit 1; } \
+	fi
 	@mkdir -p $(DESTDIR)$(MANPREFIX)
 	@mkdir -p $(DESTDIR)$(BINPREFIX)
 	@echo "... installing bins to $(DESTDIR)$(BINPREFIX)"
@@ -54,7 +59,8 @@ install:
 	@mkdir -p $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
 	cp -f etc/bash_completion.sh $(DESTDIR)$(SYSCONFDIR)/bash_completion.d/git-extras
 	@echo ""
-	@echo "If you are a zsh user, you may want to 'source etc/git-extra-completion.zsh' and put this line into ~/.zshrc to enable zsh completion"
+	@echo "If you are a zsh user, you may want to 'source $(CODE_DIR)/etc/git-extras-completion.zsh'" \
+		"and put this line into ~/.zshrc to enable zsh completion"
 
 man/%.html: man/%.md
 	ronn \

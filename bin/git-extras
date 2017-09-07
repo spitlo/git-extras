@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="4.4.0-dev"
+VERSION="4.5.0-dev"
 INSTALL_SCRIPT="https://raw.githubusercontent.com/tj/git-extras/master/install.sh"
 
 update() {
@@ -21,7 +21,7 @@ updateForWindows() {
   # we need to clean up /tmp manually on windows
   cd /tmp \
     && rm -rf ./git-extras \
-    && echo "Setting up 'git-exras'...." \
+    && echo "Setting up 'git-extras'...." \
     && git clone https://github.com/tj/git-extras.git &> /dev/null \
     && cd git-extras \
 	&& git checkout \

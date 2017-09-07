@@ -1,3 +1,31 @@
+
+4.4.0 / 2017-07-15
+==================
+
+  * install: display absolute path of zsh completion script
+  * zsh: update completion of git bug|chore|feature|refactor|create-branch
+  * git summary: use more common way to cd to top level directory
+  * Merge pull request #664 from mapitman/master
+  * Update man page for `create-branch`
+  * Update man pages
+  * Update docs for new behavior
+  * Use "$@" instead of $@
+  * Consolidate feature/bug/chore/refactor logic
+  * Allow -r parameter to be in any order in command line
+  * Add ability to specify a remote
+  * Fix Issue #186
+  * fix a wrong name in installation message
+  * Merge pull request #662 from nschlimm/master
+  * Added git-bulk to not_need_git_repo
+  * fix various typos
+  * Merge pull request #659 from bersace/mr
+  * Add git-mr to checkout GitLab merge requests
+  * Merge pull request #656 from dueringa/patch-1
+  * Fix typo in git-extras
+  * Merge pull request #654 from spacewander/replace-xargs-r
+  * git-delete-merged-branches: replace xargs -r option
+  * Bump version to 4.4.0-dev.
+
 4.3.0 / 2017-05-05
 ==================
 
@@ -688,7 +716,7 @@
  * Merge pull request #243 from sanusart/issue234
  * Fix wrong git-info heading level in Readme.md
  * Revert 2 commits to `git-changelog`
- * Fix feature|refactor|bug testing argument for string lenght
+ * Fix feature|refactor|bug testing argument for string length
  * Merge pull request #240 from egrim/bug/delete-merged-branches-clobbers-master
  * Update docs to match `git-delete-merged-branches` behavior
  * Exempt `master` from deleted branches
