@@ -141,6 +141,7 @@ _git_stamp(){
 
 _git_rscp(){
   __git_complete_remote_or_refspec
+}
 
 _git_snapshot(){
   __git_extras_workflow "snapshot"

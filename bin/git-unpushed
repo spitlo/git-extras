@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# This works eqaully well?
+# git diff --stat origin/master..
+
+git diff --stat `git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)`
