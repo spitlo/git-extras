@@ -1,9 +1,17 @@
 PREFIX ?= /usr/local
 BINPREFIX ?= "$(PREFIX)/bin"
-MANPREFIX ?= "$(PREFIX)/share/man/man1"
+
+OS = $(shell uname)
+ifeq ($(OS), FreeBSD)
+	MANPREFIX ?= "$(PREFIX)/man/man1"
+else
+	MANPREFIX ?= "$(PREFIX)/share/man/man1"
+endif
+
 SYSCONFDIR ?= $(PREFIX)/etc
 BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.md)
+MAN_BINS = $(filter-out man/git-extras.md, $(MANS))
 MAN_HTML = $(MANS:.md=.html)
 MAN_PAGES = $(MANS:.md=.1)
 CODE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
@@ -59,10 +67,30 @@ install:
 	@mkdir -p $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
 	cp -f etc/bash_completion.sh $(DESTDIR)$(SYSCONFDIR)/bash_completion.d/git-extras
 	@echo ""
-	@echo "If you are a zsh user, you may want to 'source $(CODE_DIR)/etc/git-extras-completion.zsh'" \
+	@echo "If you are a zsh user, you may want to 'source $(CODE_DIR)etc/git-extras-completion.zsh'" \
 		"and put this line into ~/.zshrc to enable zsh completion"
 
-man/%.html: man/%.md
+man/index.txt: $(MANS)
+	echo '# manuals' > $@.tmp
+	for file in $(sort $^) ; do \
+		extra=$${file%.md} ; \
+		extra=$${extra#man/} ; \
+		echo "$$extra(1) $$extra" >> $@.tmp ; \
+	done
+	mv -f $@.tmp $@
+
+man/git-extras.md: $(MAN_BINS)
+	ln=$$(awk '/## COMMANDS/{print NR};' $@) ; \
+	awk "NR <= $$ln+1" $@ > $@.tmp
+	for file in $(sort $^) ; do \
+		head -n1 $$file | \
+		sed 's/^/   - **/;s/ -- /** /' >> $@.tmp ; \
+	done
+	ln=$$(awk '/## AUTHOR/{print NR};' $@) ; \
+	awk "NR >= $$ln-1" $@ >> $@.tmp
+	mv -f $@.tmp $@
+
+man/%.html: man/%.md man/index.txt
 	ronn \
 		--manual "Git Extras" \
 		--html \

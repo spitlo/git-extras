@@ -26,8 +26,10 @@ git-extras(1) -- Awesome GIT utilities
    - **git-authors(1)** Generate authors report
    - **git-back(1)** Undo and Stage latest commits
    - **git-bug(1)** Create bug branch
+   - **git-bulk(1)** Run git commands on multiple repositories
    - **git-changelog(1)** Generate a changelog report
    - **git-chore(1)** Create chore branch
+   - **git-clear-soft(1)** Soft clean up a repository
    - **git-clear(1)** Rigorously clean up a repository
    - **git-commits-since(1)** Show commit logs since some date
    - **git-contrib(1)** Show user's contributions
@@ -40,6 +42,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-delta(1)** Lists changed files
    - **git-effort(1)** Show effort statistics on file(s)
    - **git-feature(1)** Create/Merge feature branch
+   - **git-force-clone(1)** overwrite local repositories with clone
    - **git-fork(1)** Fork a repo on github
    - **git-fresh-branch(1)** Create fresh branches
    - **git-gh-pages(1)** Create the GitHub Pages branch
@@ -56,12 +59,15 @@ git-extras(1) -- Awesome GIT utilities
    - **git-merge-repo(1)** Merge two repo histories
    - **git-missing(1)** Show commits missing from another branch
    - **git-mr(1)** Checks out a merge request locally
+   - **git-obliterate(1)** rewrite past commits to remove some files
    - **git-pr(1)** Checks out a pull request locally
    - **git-psykorebase(1)** Rebase a branch with a merge commit
+   - **git-pull-request(1)** Create pull request for GitHub project
    - **git-reauthor(1)** Rewrite history to change author's identity
    - **git-rebase-patch(1)** Rebases a patch
    - **git-refactor(1)** Create refactor branch
    - **git-release(1)** Commit, tag and push changes to the repository
+   - **git-rename-branch(1)** rename local branch and push to remote
    - **git-rename-tag(1)** Rename a tag
    - **git-repl(1)** git read-eval-print-loop
    - **git-reset-file(1)** Reset one file
@@ -73,7 +79,10 @@ git-extras(1) -- Awesome GIT utilities
    - **git-show-tree(1)** show branch tree of commit history
    - **git-show-unmerged-branches(1)** Show unmerged branches
    - **git-squash(1)** Import changes from a branch
+   - **git-stamp(1)** Stamp the last commit message
+   - **git-standup(1)** Recall the commit history
    - **git-summary(1)** Show repository summary
+   - **git-sync(1)** Sync local branch with remote branch
    - **git-touch(1)** Touch and add file to the index
    - **git-undo(1)** Remove latest commits
    - **git-unlock(1)** Unlock a file excluded from version control

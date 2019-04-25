@@ -27,6 +27,17 @@ $ sudo yum install git-extras
 $ sudo apt-get install git-extras
 ```
 
+### Nix/NixOS
+
+```bash
+$ nix-env -i git-extras
+```
+
+### CRUX
+
+[Abdullah](https://github.com/AWAN) has written a [Pkgfile](https://abdullah.today/ports/git-extras/Pkgfile) for his beloved [distro](https://crux.nu).
+
+
 ### Mac OS X with Homebrew
 
 ```bash
@@ -34,6 +45,12 @@ $ brew install git-extras
 ```
 
 Installing from Homebrew will not give you the option omit certain `git-extras` if they conflict with existing git aliases. To have this option, build from source.
+
+
+### Arch Linux
+
+* [git-extras](https://aur.archlinux.org/packages/git-extras/)
+* [git-extras-git](https://aur.archlinux.org/packages/git-extras-git/)
 
 ### Windows
 
@@ -105,6 +122,18 @@ One-liner:
 ```bash
 curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
 ```
+
+## Installing as Zsh plugin
+
+[Zplugin](https://github.com/zdharma/zplugin) can install git-extras by using:
+
+```zsh
+zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
+zplugin light tj/git-extras
+```
+
+`$ZPFX` is `~/.zplugin/polaris` by default. Use `zplugin update tj/git-extras` to update.
+This method installs in `$HOME`, so you don't need to ask administrator to install package.
 
 ## Updating
 

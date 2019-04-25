@@ -3,17 +3,25 @@ git-release(1) -- Commit, tag and push changes to the repository
 
 ## SYNOPSIS
 
-`git-release` &lt;tagname&gt; [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [-c] [[--] &lt;hook arguments...&gt;]
+`git-release` [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [[--] &lt;hook arguments...&gt;]
 
 ## DESCRIPTION
 
   Commits changes with message "Release &lt;tagname&gt;" or custom commit information, tags with the given &lt;tagname&gt; and pushes the branch / tags.
+
+  This command always creates a release commit, which could be empty if nothing changed. It works like `git merge --no-ff`. If you don't like the behavior, you could add `--no-empty-commit` to skip it.
 
   Optionally it generates a changelog (see git-changelog) and a remote can be defined. The order of first -c or -r does not matter.
 
   If `.git/hook/pre-release` or `.git/hook/post-release` exist, they will be triggered with `tagname` and extra hook arguments before/after the release.
 
 ## OPTIONS
+
+  --semver &lt;name&gt;
+
+  If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag
+  with this option. The name must be one of the `major`, `minor`, `patch`. For example, assumed the latest tag is `4.4.0`, with
+  `git release --semver minor` you will make a new release with tag `4.5.0`.
 
   &lt;tagname&gt;
 
@@ -26,6 +34,10 @@ git-release(1) -- Commit, tag and push changes to the repository
   -m &lt;commit info&gt;
 
   use the custom commit information instead of the default message "Release &lt;tagname&gt;" .
+
+  --no-empty-commit
+
+  Avoid creating empty commit if nothing could be committed.
 
   -c
 

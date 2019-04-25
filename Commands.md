@@ -236,7 +236,7 @@ $ git effort --above 5
   If you wish to see only the commits in the last month you may use `--since` (it supports the same syntax like `git log --since`):
 
 ```
- $ git effort --since='last month'
+ $ git effort -- --since='last month'
 ```
 
   By default `git ls-files` is used, however you may pass one or more files to `git-effort(1)`, for example:
@@ -458,6 +458,13 @@ Release commit with the given &lt;tag&gt; and other options:
 $ git release 0.1.0
 ```
 
+If you are using [semver](https://semver.org) in your project, you could also use the command below:
+(Run `git help release` for more information)
+
+```bash
+$ git release --semver major/minor/patch
+```
+
 Does the following:
 
   - Executes _.git/hooks/pre-release.sh_ (if present), passing it the given tag and remain arguments
@@ -595,6 +602,7 @@ To show just the global or just the local file's contents, you can use the follo
 
 * `-g` or `--global` to show just the global file
 * `-l` or `--local` to show just the local file
+* `-p` or `--private` to show just the repository's file
 
 ```bash
 $ git ignore -g
@@ -1166,22 +1174,6 @@ $ git missing master
 > 97ef387 only on master
 ```
 
-## git rebase-patch
-
-Given a patch that doesn't apply to the current HEAD, find the latest commit
-it applies to and do a rebase. For example:
-
-```bash
-$ git rebase-patch test.patch
-Trying to find a commit the patch applies to...
-Patch applied to dbcf408dd26 as 7dc8b23ae1a
-First, rewinding head to replay your work on top of it...
-Applying: test.patch
-Using index info to reconstruct a base tree...
-Falling back to patching base and 3-way merge...
-Auto-merging README.txt
-```
-
 ## git lock
 
 Lock a local file `filename`:
@@ -1365,7 +1357,7 @@ Create pull request via commandline.
 
 ## git rebase-patch
 
-Given  you have a patch that doesn´t apply to the current HEAD, but you know it applied to some commit in the past,
+Given you have a patch that doesn't apply to the current HEAD, but you know it applied to some commit in the past,
 `git rebase-patch` will help you find that commit and do a rebase.
 
 For example,

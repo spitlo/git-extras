@@ -1,4 +1,124 @@
 
+4.7.0 / 2019-02-09
+==================
+
+  * git-pr: emphasized that the remote is required when pulling multiple PRs.
+  * Merge pull request #743 from spacewander/allow_multiple_pr
+  * git-pr: accpeted multiple GitHub URL or ID with remote.
+  * git-pr: added <[remote]:pr number> option.
+  * Merge pull request #740 from spacewander/tweak_man_readme
+  * doc: clarify the current working directory when building the docs.
+  * Merge pull request #739 from sleagon/master
+  * feat: Add -s(--soft) for git sync
+  * Merge pull request #738 from StuartFeldt/add-symlinks-to-bulk-command
+  * Adding support for symlink directories in bulk command
+  * Merge pull request #737 from smancill/standup-ensure-colors
+  * git-standup: ensure color usage
+  * Merge pull request #736 from spacewander/git_force_clone_not_need_git_repo
+  * misc: sort command list in alphabetical order
+  * git-force-clone: should not need git repo
+  * Merge pull request #734 from zentarul/master
+  * Fix missing double quotes after %DEBUG%
+  * install.cmd: tweak comments
+  * Merge pull request #732 from sachin-gupta/sg-mods
+  * Fix: Dev: `/E` option required with MORE for working on higher version of Windows 10 (**_Build 17134_**)
+  * Merge pull request #729 from orestisf1993/patch-1
+  * git-rename-branch: Don't fail if remote doesn't exist
+  * Bump version to 4.7.0-dev.
+
+4.6.0 / 2018-08-11
+==================
+
+  * Merge pull request #727 from spacewander/strip_caret
+  * Makefile: change the installed manpage destination in FreeBSD (#725)
+  * git-changelog: should remove ^0 suffix from the commit description.
+  * Merge pull request #722 from spacewander/git_changelog_start_commit
+  * git-changelog: add --start-commit option, like --start-tag but for commit
+  * Merge pull request #721 from spacewander/git_changelog_list_newline
+  * git-changelog: add missing newline to the plain output
+  * Merge pull request #713 from pabs3/docs
+  * Merge pull request #717 from flatcap/ignore-private
+  * optimisation of mkdir
+  * Ensure info dir exists
+  * add: git-ignore -p (private to repo)
+  * Merge pull request #716 from francoism90/patch-1
+  * Added Arch Linux
+  * Merge pull request #714 from spacewander/fix_detect_sed_i_support
+  * Documentation rebuild: git-sed.* flags argument
+  * Documentation rebuild: git-clear.html whitespace removal
+  * Documentation rebuild: git-extras.* updates
+  * Documentation rebuild: index.txt updates
+  * Documentation rebuild: dates and headers
+  * Remove one of the documentation building tools
+  * Remove some trailing whitespace
+  * Merge pull request #715 from tjaartvdwalt/master
+  * Major/Minor release should reset minor/patch versions to 0
+  * Fix greedy match of version number
+  * git-sed: fix previous bsd sed workaround
+  * Merge pull request #712 from spacewander/detect_sed_i_support
+  * git-sed: detect sed -i support and work around for the BSD sed
+  * Merge pull request #709 from pabs3/git-sed
+  * git-sed: discover a separator when the / character is used in arguments
+  * git-sed: pass the -r option to the xargs command
+  * git-sed: Allow the flags to be passed as a third argument
+  * Merge pull request #706 from MontakOleg/delete-branch
+  * Fix deleting branches without upstream
+  * Merge pull request #704 from ramlev/master
+  * Remove double path delimiters in zsh description
+  * Merge pull request #703 from psprint/master
+  * Installation.md: Zsh-plugin method which doesn't require root access
+  * Bump version to 4.6.0-dev.
+
+4.5.0 / 2018-02-18
+==================
+
+  * git-release: show message if nothing given after --semver
+  * doc: update git-extras index
+  * Merge pull request #639 from spacewander/avoid_deleting_local_upstream
+  * Merge pull request #693 from xakraz/fix-mktemp-pattern
+  * git-release: add --no-empty-commit for empty commit hater
+  * git-release: create an empty release commit if there is nothing to commit
+  * git-summary: unescape tab for linux column utility
+  * git-undo: add confirmation when `-h` is specified
+  * Fixed mktemp template to support busybox (and Alpine linux)
+  * Merge pull request #691 from koppor/patch-1
+  * Remove trailing dot of German Windows
+  * Merge pull request #690 from dominicbarnes/release-push-tags-first
+  * feat(git-release): push tags first to help ci tools not miss them
+  * Merge pull request #687 from spacewander/add_semver
+  * git-release: handle extra non-numeric prefix in tag with --semver
+  * Merge pull request #686 from spacewander/add_semver
+  * git-release: add --semver option
+  * Merge pull request #684 from spacewander/ignore_unknown_arg
+  * git-release: function usage doesn't exist, ignore unknown argument instead
+  * Merge pull request #681 from EdwardBetts/master
+  * Fix so 'git rebase-patch' is described once.
+  * Merge pull request #680 from lhernanz/master
+  * Preserve the existing user_commands in the git completion system
+  * Merge pull request #679 from spacewander/update_git_changelog_doc
+  * Merge pull request #678 from timhwang21/devs/thwang/docs-update
+  * Mention how to control changelog format in docs of git-changelog
+  * Docs> Add -- in front of cmd for git log
+  * Merge pull request #676 from gormac/master
+  * Fix 'Invalid code page' error when resetting code page at end of script
+  * Merge pull request #675 from quite/effort-cursor
+  * git-effort: restore normal (visible) cursor properly
+  * Merge pull request #674 from tj/pull-request-two-factor-auth
+  * Add GitHub two-factor auth support to git-pull-request
+  * Merge pull request #672 from mehandes/patch-1
+  * Added Nix/NixOS method of installation
+  * Merge pull request #671 from sambostock/improve-ignore-io
+  * Use local variables & format strings
+  * Fix omission when alphabetically printing ignores
+  * Remove arbitrary column limit on ignore-io
+  * Merge pull request #670 from zeeshanu/patch-1
+  * Fix typo
+  * Merge pull request #668 from isaacm/patch-1
+  * Fix typos, remove trailing whitespace
+  * install: submit brew patch to upstream
+  * Bump version to 4.5.0-dev.
+  * git-delete-branch: avoid deleting local upstream
+
 4.4.0 / 2017-07-15
 ==================
 

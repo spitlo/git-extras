@@ -13,11 +13,12 @@ git-undo(1) -- Remove latest commits
 
   --soft or -s
 
-  This is the default, only rolls back the commit but changes remain un-staged.
+  Rolls back the commit(s) but leaves the changes in the staging area.
 
   --hard or -h
 
   This option wipes your commit(s), so that your changes cannot be recovered. Use with care.
+  To avoid being confused with `--help`, there will be a confirmation when `-h` is specified.
 
   &lt;commitcount&gt;
 
@@ -28,6 +29,10 @@ git-undo(1) -- Remove latest commits
   Removes the latest commit.
 
     $ git undo
+
+  Removes the latest commit, restoring the staging area.
+
+    $ git undo -s
 
   Remove the latest 3 commits:
 
